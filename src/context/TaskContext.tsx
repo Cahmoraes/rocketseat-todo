@@ -51,7 +51,7 @@ export function TaskContextProvider({ children }: TaskContextProviderProps) {
     })
 
     setTasks(newTasks)
-  }, [setTasks, tasks])
+  }, [tasks])
 
   return (
     <TaskContext.Provider value={{
