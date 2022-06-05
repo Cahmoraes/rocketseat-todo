@@ -31,18 +31,27 @@ export function TaskContextProvider({ children }: TaskContextProviderProps) {
     setTasks(tasks => tasks.filter(task => task.id !== id))
   }, [])
 
-  const toggleDoneTask = (id: string) => {
-    const taskIndex = tasks.findIndex(task => task.id === id)
-    
-    if (taskIndex < 0) return
+  const toggleDoneTask = useCallback((id: string) => {
+    // const taskIndex = tasks.findIndex(task => task.id === id)
 
-    tasks[taskIndex] = {
-      ...tasks[taskIndex],
-      done: !tasks[taskIndex].done
-    }
+    // if (taskIndex < 0) return
 
-    setTasks([...tasks])
-  }
+    // tasks[taskIndex] = {
+    //   ...tasks[taskIndex],
+    //   done: !tasks[taskIndex].done
+    // }
+
+    // setTasks([...tasks])
+
+    const newTasks = tasks.map(task => {
+      if (task.id === id) {
+        return { ...task, done: !task.done }
+      }
+      return task
+    })
+
+    setTasks(newTasks)
+  }, [setTasks, tasks])
 
   return (
     <TaskContext.Provider value={{
